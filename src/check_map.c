@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:31:34 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/24 10:07:20 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:19:55 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	check_map(int *x, int *y, int fd, int check)
 {
 	char	*letter;
+	char	**map;
 	char	*file;
 	int		nbr_read;
 
@@ -34,60 +35,73 @@ int	check_map(int *x, int *y, int fd, int check)
 			exit (0);
 	}
 	free (letter);
-	check = verif_map(file, x, y);
-	if (check == 0)
+	map = ft_split(file, '\n');
+	check = verif_map(file, map, x, y);
+	if (check == -1)
 		return (1);
-	start(*x, *y, file, check);
+	start(*x, *y, map, check);
 	return (0);
 }
 
-int	verif_map(char *file, int *x, int *y)
+int	check_border_line(char *line, int len)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '1')
+			return (0);
+		else
+			i++;
+	}
+	if (i != len)
+		return (0);
+	return (1);
+}
+
+int	check_middle_line(char *line, int len)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '1' && line[i] != '0' && line[i] != 'P' && line[i] != 'C' && line[i] != 'E')
+			return (0);
+		else
+			i++;
+	}
+	if (i != len)
+		return (0);
+	return (1);
+}
+
+int	verif_map(char *file, char **map, int *x, int *y)
 {
 	int	i;
 	int	len;
 	int	check;
 
-	i = 0;
-	len = 0;
-	while (file[len] != '\n')
+	len = ft_strlen(map[0]);
+	i = 1;
+	if (check_border_line(map[0], len) == 0)
+		return (-1);
+	while (map[i + 1])
 	{
-		if (file[i] != '1')
-			return (0);
-		len++;
+		if (check_middle_line(map[i], len) == 0)
+			return (-1);
+		else
+			i++;
 	}
-	i = verif_map2(file, len, len);
-	if (i == -1)
-		return (0);
+	if (check_border_line(map[i], len) == 0)
+		return (-1);
 	check = verif_map3(0, file);
 	if (check == 0)
-		return (0);
-	*x = len * 80;
-	*y = (i / len) * 80;
-	return (check);
-}
-
-int	verif_map2(char *file, int i, int len)
-{
-	int	ret;
-
-	ret = 0;
-	while (file[i + 1])
-	{
-		if (file[i] != '\n' || file[i - 1] != '1' || file[i + 1] != '1')
-			return (-1);
-		i += len + 1;
-	}
-	ret = i;
-	if (file[i] && file[i] != '\n')
 		return (-1);
-	i--;
-	while (file[i] != '\n')
-	{
-		if (file[i] != '1')
-			return (-1);
-		i--;
-	}
-	return (ret);
+	*x = len * 80;
+	*y = (i + 1) * 80;
+	return (check);
 }
 
 int	verif_map3(int i, char *file)

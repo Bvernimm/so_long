@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 10:32:21 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/24 10:03:58 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:21:23 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct s_wall {
 	int		h;
 }				t_wall;
 
-void	start(int x, int y, char *map, int player_nbr);
+void	start(int x, int y, char **map, int player_nbr);
+char	*ft_reee(char **map);
 int		do_stuff_player1(int keycode, t_vars *vars);
 int		ft_exit(t_vars *vars);
 int		rm_img(t_wall *img1, t_vars *vars, int x, int y);
@@ -65,7 +66,8 @@ char	*ft_strjoin(char *file, char *tmp, int indic);
 int		ft_strlen(char *str);
 char	**ft_split(char const *s, char c);
 int		check_map(int *x, int *y, int fd, int check);
-int		verif_map(char *file, int *x, int *y);
-int		verif_map2(char *file, int i, int len);
+int		verif_map(char *file, char **map, int *x, int *y);
+int		check_middle_line(char *line, int len);
+int		check_border_line(char *line, int len);
 int		verif_map3(int i, char *file);
 #endif

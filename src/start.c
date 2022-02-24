@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:09:21 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/23 12:30:01 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:10:40 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,30 @@ int	do_stuff_player1(int keycode, t_vars *vars)
 	return (0);
 }
 
-void	start(int x, int y, char *map, int player_nbr)
+char	*ft_reee(char **map)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	while (map[i])
+	{
+		line = ft_strjoin(line, map[i], 1);
+		line = ft_strjoin(line, "\n", 1);
+		i++;
+	}
+	return (line);
+}
+
+void	start(int x, int y, char **map, int player_nbr)
 {
 	t_vars	data;
 
 	data.move = 0;
-	data.map = ft_split(map, '\n');
+	data.map = map;
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, x, y, "So_long");
-	make_map(map, &data, 0, 0);
+	make_map(ft_reee(map), &data, 0, 0);
 	if (player_nbr == 2)
 		data.collectible--;
 	if (player_nbr == 1)
