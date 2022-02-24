@@ -6,11 +6,25 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:07:47 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/23 13:09:52 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:42:21 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	ft_counter_split(char *map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		if (map[i] == '\n' && map[i + 1] == '\n')
+			return (-1);
+		i++;
+	}
+	return (0);
+}
 
 void	ft_ennemi(t_vars *vars, int *x, int *y)
 {

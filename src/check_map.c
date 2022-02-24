@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:31:34 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/24 13:24:27 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:40:55 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	check_map(int *x, int *y, int fd, int check)
 			exit (0);
 	}
 	free (letter);
+	if (ft_counter_split(file) == -1)
+		return (1);
 	map = ft_split(file, '\n');
 	check = verif_map(file, map, x, y);
 	if (check == -1)
