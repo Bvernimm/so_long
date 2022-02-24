@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:31:34 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/23 11:14:12 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 10:07:20 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,16 @@ int	verif_map(char *file, int *x, int *y)
 
 	i = 0;
 	len = 0;
-	while (file[i] != '\n')
+	while (file[len] != '\n')
 	{
 		if (file[i] != '1')
 			return (0);
-		i++;
+		len++;
 	}
-	len = i;
-	while (file[i])
-	{
-		if (file[i] != '\n' || file[i - 1] != '1' || file[i + 1] != '1')
-			return (0);
-		i += len + 1;
-	}
-	check = verif_map2(0, file);
+	i = verif_map2(file, len, len);
+	if (i == -1)
+		return (0);
+	check = verif_map3(0, file);
 	if (check == 0)
 		return (0);
 	*x = len * 80;
@@ -70,7 +66,31 @@ int	verif_map(char *file, int *x, int *y)
 	return (check);
 }
 
-int	verif_map2(int i, char *file)
+int	verif_map2(char *file, int i, int len)
+{
+	int	ret;
+
+	ret = 0;
+	while (file[i + 1])
+	{
+		if (file[i] != '\n' || file[i - 1] != '1' || file[i + 1] != '1')
+			return (-1);
+		i += len + 1;
+	}
+	ret = i;
+	if (file[i] && file[i] != '\n')
+		return (-1);
+	i--;
+	while (file[i] != '\n')
+	{
+		if (file[i] != '1')
+			return (-1);
+		i--;
+	}
+	return (ret);
+}
+
+int	verif_map3(int i, char *file)
 {
 	int	e;
 	int	c;

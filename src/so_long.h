@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 10:32:21 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/23 13:11:32 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 10:03:58 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int		ft_strlen(char *str);
 char	**ft_split(char const *s, char c);
 int		check_map(int *x, int *y, int fd, int check);
 int		verif_map(char *file, int *x, int *y);
-int		verif_map2(int i, char *file);
+int		verif_map2(char *file, int i, int len);
+int		verif_map3(int i, char *file);
 #endif
