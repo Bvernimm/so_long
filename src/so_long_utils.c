@@ -6,11 +6,36 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:07:47 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/24 13:42:21 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:52:53 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+char	*read_file(int fd)
+{
+	char	*letter;
+	char	*file;
+	int		nbr_read;
+
+	letter = malloc (sizeof(char) * 2);
+	file = NULL;
+	nbr_read = 1;
+	while (nbr_read != 0)
+	{
+		nbr_read = read(fd, letter, 1);
+		if (nbr_read < 0)
+			exit (0);
+		if (nbr_read == 0)
+			break ;
+		letter[1] = '\0';
+		file = ft_strjoin(file, letter, 1);
+		if (!file)
+			exit (0);
+	}
+	free (letter);
+	return (file);
+}
 
 int	ft_counter_split(char *map)
 {

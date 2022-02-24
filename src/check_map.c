@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:31:34 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/24 13:40:55 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:53:12 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,10 @@
 
 int	check_map(int *x, int *y, int fd, int check)
 {
-	char	*letter;
 	char	**map;
 	char	*file;
-	int		nbr_read;
 
-	letter = malloc (sizeof(char) * 2);
-	file = NULL;
-	nbr_read = 1;
-	while (nbr_read != 0)
-	{
-		nbr_read = read(fd, letter, 1);
-		if (nbr_read < 0)
-			exit (0);
-		if (nbr_read == 0)
-			break ;
-		letter[1] = '\0';
-		file = ft_strjoin(file, letter, 1);
-		if (!file)
-			exit (0);
-	}
-	free (letter);
+	file = read_file(fd);
 	if (ft_counter_split(file) == -1)
 		return (1);
 	map = ft_split(file, '\n');
@@ -71,7 +54,8 @@ int	check_middle_line(char *line, int len)
 		return (0);
 	while (line[i])
 	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != 'P' && line[i] != 'C' && line[i] != 'E')
+		if (line[i] != '1' && line[i] != '0' && line[i] != 'P'
+			&& line[i] != 'C' && line[i] != 'E')
 			return (0);
 		else
 			i++;

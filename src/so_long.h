@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 10:32:21 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/24 13:41:19 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:54:02 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,5 @@ int		check_middle_line(char *line, int len);
 int		check_border_line(char *line, int len);
 int		ft_counter_split(char *map);
 int		verif_map3(int i, char *file);
+char	*read_file(int fd);
 #endif
