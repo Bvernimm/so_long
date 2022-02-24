@@ -6,7 +6,7 @@
 /*   By: bvernimm <bvernimm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 13:31:34 by bvernimm          #+#    #+#             */
-/*   Updated: 2022/02/24 13:19:55 by bvernimm         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:24:27 by bvernimm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	check_middle_line(char *line, int len)
 	int	i;
 
 	i = 0;
+	if (line[i] != '1')
+		return (0);
 	while (line[i])
 	{
 		if (line[i] != '1' && line[i] != '0' && line[i] != 'P' && line[i] != 'C' && line[i] != 'E')
@@ -72,6 +74,8 @@ int	check_middle_line(char *line, int len)
 		else
 			i++;
 	}
+	if (line[i - 1] != '1')
+		return (0);
 	if (i != len)
 		return (0);
 	return (1);
