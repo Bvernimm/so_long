@@ -1,3 +1,8 @@
+YELLOW	:= $(shell tput -Txterm setaf 3)
+GREEN	:= $(shell tput -Txterm setaf 2)
+RED		:= $(shell tput -Txterm setaf 1)
+RESET	:= $(shell tput -Txterm sgr0)
+
 NAME	= so_long
 
 OBJS	= ${SRCS:.c=.o}
@@ -11,21 +16,22 @@ HEADER	= so_long.h
 
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+	@$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+	@printf "${YELLOW}Compiling [%s]...%-42s${RESET}\r" $<
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-
-
-$(NAME): ${OBJS}
+	@$(CC) $(OBJS) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@echo "\n${GREEN}Finished : $(NAME)${RESET}"
 
 all:	${NAME}
 
 clean:
-		rm -rf ${OBJS}
+		@rm -rf ${OBJS}
+		@echo "${RED}Removing objects...${RESET}"
 
 fclean:	clean
-		rm -rf ${NAME}
+		@rm -rf ${NAME}
+		@echo "${RED}Removing ${NAME}...${RESET}"
 
 re:		fclean all
 
